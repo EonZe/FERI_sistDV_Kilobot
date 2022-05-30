@@ -60,8 +60,8 @@ all: main-build
 main-build: kilobot_demo2.elf secondary-outputs
 
 # Tool invocations
-kilobot_demo2.elf kilobot_demo2.map: $(OBJS) $(USER_OBJS) /home/eonz/Desktop/sistDV/kilobot_demo2/STM32G050K8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "kilobot_demo2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"/home/eonz/Desktop/sistDV/kilobot_demo2/STM32G050K8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="kilobot_demo2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+kilobot_demo2.elf kilobot_demo2.map: $(OBJS) $(USER_OBJS) /home/eonz/Desktop/sistDV/FERI_sistDV_Kilobot/kilobot_demo2/STM32G050K8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "kilobot_demo2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"/home/eonz/Desktop/sistDV/FERI_sistDV_Kilobot/kilobot_demo2/STM32G050K8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="kilobot_demo2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

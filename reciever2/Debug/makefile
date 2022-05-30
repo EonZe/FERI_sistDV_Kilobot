@@ -60,8 +60,8 @@ all: main-build
 main-build: reciever2.elf secondary-outputs
 
 # Tool invocations
-reciever2.elf reciever2.map: $(OBJS) $(USER_OBJS) /home/eonz/Desktop/sistDV/reciever2/STM32G0B1RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "reciever2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"/home/eonz/Desktop/sistDV/reciever2/STM32G0B1RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reciever2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+reciever2.elf reciever2.map: $(OBJS) $(USER_OBJS) /home/eonz/Desktop/sistDV/FERI_sistDV_Kilobot/reciever2/STM32G0B1RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "reciever2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"/home/eonz/Desktop/sistDV/FERI_sistDV_Kilobot/reciever2/STM32G0B1RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="reciever2.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

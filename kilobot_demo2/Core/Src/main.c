@@ -33,7 +33,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ID '7'	//ID ROBOTA - !!! SAMO 1 ZNAK !!!
+#define ID '5'	//ID ROBOTA - !!! SAMO 1 ZNAK !!!
 
 #define payloadSize 32
 #define bitcount 33

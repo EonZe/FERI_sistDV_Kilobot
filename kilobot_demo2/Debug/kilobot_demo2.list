@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   0000e63c  00000000  00000000  00045a3c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00088f7a  00000000  00000000  00054078  2**0
+ 18 .debug_str    00088f8e  00000000  00000000  00054078  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000dcff2  2**0
+ 19 .comment      00000050  00000000  00000000  000dd006  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000392c  00000000  00000000  000dd044  2**2
+ 20 .debug_frame  0000392c  00000000  00000000  000dd058  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2004,8 +2004,8 @@ int main(void)
     NRF24_setAutoAck(false);
  8000ca6:	2000      	movs	r0, #0
  8000ca8:	f7ff fe48 	bl	800093c <NRF24_setAutoAck>
-    NRF24_setChannel(0);
- 8000cac:	2000      	movs	r0, #0
+    NRF24_setChannel(83);
+ 8000cac:	2053      	movs	r0, #83	; 0x53
  8000cae:	f7ff fddd 	bl	800086c <NRF24_setChannel>
     NRF24_setPayloadSize(payloadSize);
  8000cb2:	2020      	movs	r0, #32
@@ -2038,7 +2038,7 @@ int main(void)
 		if ((char) RxBin[0] == ID) {
  8000cde:	4b44      	ldr	r3, [pc, #272]	; (8000df0 <main+0x1dc>)
  8000ce0:	781b      	ldrb	r3, [r3, #0]
- 8000ce2:	2b37      	cmp	r3, #55	; 0x37
+ 8000ce2:	2b35      	cmp	r3, #53	; 0x35
  8000ce4:	d169      	bne.n	8000dba <main+0x1a6>
 			for(int i = 0; i< payloadSize; i++)
  8000ce6:	2300      	movs	r3, #0
