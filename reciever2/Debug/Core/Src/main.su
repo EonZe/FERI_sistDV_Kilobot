@@ -6,5 +6,5 @@
 ../Core/Src/main.c:322:6:serialWrite	16	static
 ../Core/Src/main.c:327:6:serialProcessRxData	16	static
 ../Core/Src/main.c:343:6:HAL_UART_RxCpltCallback	16	static
-../Core/Src/main.c:358:6:clearString	24	static
-../Core/Src/main.c:368:6:Error_Handler	8	static,ignoring_inline_asm
+../Core/Src/main.c:357:6:clearString	24	static
+../Core/Src/main.c:367:6:Error_Handler	8	static,ignoring_inline_asm

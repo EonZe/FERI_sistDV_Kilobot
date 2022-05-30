@@ -4382,7 +4382,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  8001d90:	4a0f      	ldr	r2, [pc, #60]	; (8001dd0 <HAL_UART_RxCpltCallback+0x4c>)
  8001d92:	4293      	cmp	r3, r2
  8001d94:	d117      	bne.n	8001dc6 <HAL_UART_RxCpltCallback+0x42>
-		if(RxSingleByte == '\n') {
+		if(RxSingleByte == '\n')
  8001d96:	4b0f      	ldr	r3, [pc, #60]	; (8001dd4 <HAL_UART_RxCpltCallback+0x50>)
  8001d98:	781b      	ldrb	r3, [r3, #0]
  8001d9a:	2b0a      	cmp	r3, #10
@@ -4390,7 +4390,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 			serialProcessRxData();
  8001d9e:	f7ff ffab 	bl	8001cf8 <serialProcessRxData>
  8001da2:	e00a      	b.n	8001dba <HAL_UART_RxCpltCallback+0x36>
-		}
 		else RxUARTBuffer[RxUARTLength++] = RxSingleByte;
  8001da4:	4b0c      	ldr	r3, [pc, #48]	; (8001dd8 <HAL_UART_RxCpltCallback+0x54>)
  8001da6:	781b      	ldrb	r3, [r3, #0]
