@@ -133,7 +133,7 @@ int main(void)
     NRF24_setChannel(83);
     NRF24_setPayloadSize(payloadSize);
     NRF24_setPALevel(RF24_PA_m6dB);
-
+    NRF24_setDataRate(RF24_2MBPS);
     NRF24_startListening();
 
 

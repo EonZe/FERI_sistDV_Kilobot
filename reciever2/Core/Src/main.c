@@ -53,6 +53,7 @@ char RxUARTBuffer[UART_BUFFER], Txdata[UART_BUFFER], TxBuffer[PAYLOAD_SIZE];
 
 uint8_t RxUARTLength=0, RxSingleByte, dataFlag = 0;
 uint64_t TxAddress = 0x11223344AA;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -123,6 +124,7 @@ int main(void)
     NRF24_setChannel(83);
     NRF24_setPayloadSize(PAYLOAD_SIZE);
     NRF24_setPALevel(RF24_PA_m6dB);
+    NRF24_setDataRate(RF24_2MBPS);
 
 
    // printRadioSettings();
@@ -143,12 +145,14 @@ int main(void)
 			  TxBuffer[buffer_index++] = Txdata[i];
 
 			  if (Txdata[i]=='\0' || Txdata[i]==';' || buffer_index == PAYLOAD_SIZE ||i == (UART_BUFFER-1)) {
+				  if(Txdata[i]==';') TxBuffer[buffer_index-1] ='\0';
 
 				  NRF24_write(TxBuffer, PAYLOAD_SIZE);
 
 				  clearString(TxBuffer, PAYLOAD_SIZE);
 				  buffer_index = 0;
 				  if (Txdata[i]=='\0') break;
+				  HAL_Delay(1);
 			  }
 
 		  }
