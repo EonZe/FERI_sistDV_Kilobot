@@ -4,7 +4,7 @@ Programming kilobot:
 Make sure that your kilobot id matches your aruco marker id. Your id should be only one character long(for id 10 use kilobot id 'A', for 11 use 'B'...).
 
 Kilobot commands:
-first character in commands represent kilobot id in examples below the id will be 5:
+first character in a command is kilobot id. In examples below the id will mostly be 5:
 
 5T ...  test kilobot with id 5
 1. PWM1 is set to 2000 for 1 s, LED gets toggled
@@ -16,4 +16,4 @@ first character in commands represent kilobot id in examples below the id will b
 you can send multiple commands at once, by seperating them with semicolon:
 5T;1P2000 0100;6P2000 0100;7P2000 0100...
 
-Maximum serial message lenght is 256 characters. Maximum NRF command lenght, including id is 32 bytes.
+Maximum serial message lenght is 256 characters. All messages must also be terminated with \n character. Maximum NRF command lenght, including id is 32 bytes.
