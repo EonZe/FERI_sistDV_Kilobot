@@ -15,16 +15,16 @@ url = "http://192.168.43.1:8080/shot.jpg"
 
 def calculate_XYZ(self,u,v):
 
-        #Solve: From Image Pixels, find World Points
+    #Solve: From Image Pixels, find World Points
 
-        uv_1=np.array([[u,v,1]], dtype=np.float32)
-        uv_1=uv_1.T
-        suv_1=self.scalingfactor*uv_1
-        xyz_c=self.inverse_newcam_mtx.dot(suv_1)
-        xyz_c=xyz_c-self.tvec1
-        XYZ=self.inverse_R_mtx.dot(xyz_c)
+    uv_1=np.array([[u,v,1]], dtype=np.float32)
+    uv_1=uv_1.T
+    suv_1=self.scalingfactor*uv_1
+    xyz_c=self.inverse_newcam_mtx.dot(suv_1)
+    xyz_c=xyz_c-self.tvec1
+    XYZ=self.inverse_R_mtx.dot(xyz_c)
 
-return XYZ
+    return XYZ
 
 while(True):
     img_resp = requests.get(url)
