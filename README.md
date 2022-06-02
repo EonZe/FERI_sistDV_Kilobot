@@ -3,6 +3,8 @@ Programming kilobot:
 
 Make sure that your kilobot id matches your aruco marker id. Your id should be only one character long(for id 10 use kilobot id 'A', for 11 use 'B'...).
 
+If you use F446 with NRF shield, then use rf_gateway_nrf for your gateway.
+
 Kilobot commands:
 first character in a command is kilobot id. In examples below the id will mostly be 5:
 
