@@ -21,7 +21,6 @@ class Marker:
         self.kot = kot
         return None
     
-    
 def ZaznajVogali(vogali,Slika,dim,skaliraj):
     #-- določanje pozicije in orientacije markerjev na sliki
     Center = MarkerCenterKoord(vogali)      # koordinate centra markerja
@@ -55,6 +54,8 @@ def MarkerKotDeg(Center, Spredaj):
 Markerji = []
 for i in range(1,15):
     Markerji.append(Marker([0,0],0,i))
+
+
 
 hCam = ueye.HIDS(0)
 cInfo = ueye.CAMINFO()
