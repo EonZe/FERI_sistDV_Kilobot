@@ -3,6 +3,8 @@ import numpy as np
 import cv2 as cv
 from cv2 import aruco
 
+from KilobotData import Marker
+
 
 def get_markers(data):
        
@@ -15,21 +17,22 @@ def get_markers(data):
     corners, ids, rejectedImgPoints = aruco.detectMarkers(slika_rs, data.aruco_dict, parameters=parameters)
     frame_markers = aruco.drawDetectedMarkers(slika_rs.copy(), corners, ids)
     
+    data.Markerji.clear()
     if ids is not None:
         for i in range(0,len(ids)):
             #-- določanje pozicije in orientacije markerjev na sliki
+            id=ids[i][0]
             vogali = corners[i]                                 # vogali enega od zaznanih markerjev
             center, kot = ZaznajVogale(vogali, data.dim, data.skaliraj)    # določi center in kot markerja (in označi na sliki)
-            data.Markerji[ids[i][0]-1].setData(center, kot)          # zapiši podatke v seznam markerjev
+            data.Markerji.append(Marker(id, center, kot))         # zapiši podatke v seznam markerjev
     
-    cv.imshow("OpenCV_PyuEye_Test", frame_markers)
-
-    data.ids = ids
+    cv.imshow("Kilobot vodenje", frame_markers)
     return data
 
 
 def ZaznajVogale(vogali,dim,skaliraj):
     #-- določanje pozicije in orientacije markerjev na sliki¸ra markerja
+    Center = MarkerCenterKoord(vogali)      # koordinate centra markerja
     Spredaj = MarkerSpredajKoord(vogali)    # koordinate sredine sprednjega roba
     Center[1] = dim[1]-Center[1]
     Spredaj[1] = dim[1]-Spredaj[1]
