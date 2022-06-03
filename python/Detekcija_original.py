@@ -4,7 +4,8 @@ import cv2 as cv
 from cv2 import aruco
 import ctypes
 import datetime
-import time
+import time as t
+import os
 
 
 class Marker:
@@ -35,6 +36,38 @@ def ZaznajVogali(vogali,Slika,dim,skaliraj):
     Center = [int(Center[0]*100/skaliraj), int(Center[1]*100/skaliraj)]
     return(Center, kot)
 
+def abs(v):
+    return np.linalg.norm(v)
+
+def calcPWM(marker):
+    id = marker.id
+
+    th_m = marker.kot-50
+    p_m = marker.center
+
+    dif = [-(600-p_m[0]), -(400-p_m[1])]
+
+    th_dif = MarkerKotDeg([1,0], dif)
+    d_th=th_dif-th_m
+
+#"regulacija" položaja
+    abs_dif=abs(np.array(dif))
+    PWM1 = 0
+    PWM2 = 0
+    if (abs_dif > 1):
+        PWM1 = 2000
+        PWM2 = 2000
+
+        if np.abs(d_th) > 10:
+            if d_th > 0:
+                PWM1 = 0
+                PWM2 = 1500
+            elif d_th < 0:
+                PWM1 = 2000
+                PWM2 = 0
+    print("Kilobot: ",marker.getData(),", E: ",dif,", th_E: ", th_dif,", d_th: ",d_th)
+    print("PWM1: ",PWM1,", PWM2: ",PWM2)
+
 
 def MarkerCenterKoord(vogali):
     Center = [int((vogali[0][0][0] + vogali[0][2][0]) / 2), int((vogali[0][0][1] + vogali[0][2][1]) / 2)]
@@ -52,8 +85,6 @@ def MarkerKotDeg(Center, Spredaj):
     return int(kot)
 
 Markerji = []
-for i in range(1,15):
-    Markerji.append(Marker([0,0],0,i))
 
 
 
@@ -145,21 +176,24 @@ while(nRet == ueye.IS_SUCCESS):
     corners, ids, rejectedImgPoints = aruco.detectMarkers(slika_rs, aruco_dict, parameters=parameters)
     frame_markers = aruco.drawDetectedMarkers(slika_rs.copy(), corners, ids)
     
+    Markerji.clear()
     if ids is not None:
         for i in range(0,len(ids)):
             #-- določanje pozicije in orientacije markerjev na sliki
+            id =ids[i][0]
             vogali = corners[i]                                 # vogali enega od zaznanih markerjev
             center, kot = ZaznajVogali(vogali,frame_markers, dim, skaliraj)    # določi center in kot markerja (in označi na sliki)
-            Markerji[ids[i][0]-1].setData(center, kot)          # zapiši podatke v seznam markerjev
+            Markerji.append(Marker(center,kot,id))
+           # Markerji[id].setData(center, kot)          # zapiši podatke v seznam markerjev
     
     cv.imshow("OpenCV_PyuEye_Test", frame_markers)
     #img_name = "opencv_frame_{}.png".format(img_counter)
     #cv2.imwrite(img_name, frame)
     #print("{} written!".format(img_name))
     #img_counter += 1
-    
+    os.system('cls')
     for i in range(len(Markerji)):
-        print(Markerji[i].getData())
+        calcPWM(Markerji[i])
 
     #time.sleep(0.164)
     #time.sleep(1)
@@ -169,8 +203,9 @@ while(nRet == ueye.IS_SUCCESS):
     delta_cas = int(delta_cas.total_seconds() * 1000)
     print("Cas detekcije:", delta_cas, " ms")
 
+
     # Pritisk na Q za izhod iz programa
-    if cv.waitKey(1) & 0xFF == ord('q'):
+    if cv.waitKey(10) & 0xFF == ord('q'):
         break
 
     
