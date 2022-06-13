@@ -58,18 +58,6 @@ class KilobotData:
         if nRet != ueye.IS_SUCCESS:
             print("is_InquireImageMem ERROR")
 
-        #print(pcImageMemory)
-        #print()
-        #print(width)
-        #print(height)
-        #print()
-        #print(nBitsPerPixel)
-        #print()
-        #print(pitch)
-        #print()
-        #print(cInfo)
-        #print()
-        #print(sInfo)
 
         self.nRet = nRet
         self.pcImageMemory = pcImageMemory
@@ -84,39 +72,59 @@ class KilobotData:
         self.dim = (1280, 960)
         self.skaliraj = 100
         
-        #Vrednosti markerjev
-        self.Markerji = []
-        self.ref = []
-        self.N = 15
+        self.Markerji = [] #Vrednosti markerjev
+        self.ref = []      #Vrednosti vmesnih referencnih vrednosti
+        self.target = []   #Vrednosti koncnih referenchih vrednosti
+        self.N = 15        #Stevilo kilobotov (15->ID 0-14)
+        
         for i in range(0,self.N):
             self.ref.append([0,0])
-
-        #for i in range(1,self.N):
-        #    self.Markerji.append(Marker(i,[0,0],0))
+            self.target.append([0,0])
+        self.nPoints = 2
+        self.seq = 2
+        self.trajectories=[ #p1 =790 300 p2=360 470
+         [[400, 400], [600, 400]] ,# 0
+         [[400, 400], [600, 400]] ,# 1
+         [[400, 400], [600, 400]] ,# 2
+         [[400, 400], [600, 400]] ,# 3
+         [[400, 400], [600, 400]] ,# 4
+         [[400, 400], [600, 400]] ,# 5
+         [[400, 400], [600, 400]] ,# 6
+         [[400, 400], [600, 400]] ,# 7
+         [[400, 400], [600, 400]] ,# 8
+         [[400, 400], [600, 400]] ,# 9
+         [[400, 400], [600, 400]] ,# 10
+         [[400, 400], [600, 400]] ,# 11
+         [[400, 400], [600, 400]] ,# 12
+         [[400, 400], [600, 400]] ,# 13
+         [[400, 400], [600, 400]] ,# 14
+        ]
 
         #Hramba časov
-        self.t0 = self.t1 = self.t2 = dt.datetime.now()
+        self.t0 = self.t1 = self.t2 = dt.datetime.now()  #t0 - zacetni cas programa, t1- zacetni cas cikla, t2 - koncni cas cikla
 
+        #Info o dosezenih polozajih
+        self.allAtTarget = True        #Vsi roboti so na koncnih polozajih
         #hramba podatkov
         self.SerialData = ""
 
         #parametri kilobotov
         self.kb_param =[
-        KilobotParam(id=0, offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=1, offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=2, offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=3, offset_kota=-232,k_M1=0.8,k_M2=.8),
-        KilobotParam(id=4, offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=5, offset_kota=-50,k_M1=1.5,k_M2=1.5),
-        KilobotParam(id=6, offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=7, offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=8, offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=9, offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=10,offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=11,offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=12,offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=13,offset_kota=0,k_M1=1,k_M2=1),
-        KilobotParam(id=14,offset_kota=0,k_M1=1,k_M2=1)]
+        KilobotParam(id=0, offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=1, offset_kota=-10,M=1,k_M1=0.7,k_M2=0.8),
+        KilobotParam(id=2, offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=3, offset_kota=-232,M=0,k_M1=0.8,k_M2=.8),
+        KilobotParam(id=4, offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=5, offset_kota=-51,M=0,k_M1=1,k_M2=1),#50
+        KilobotParam(id=6, offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=7, offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=8, offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=9, offset_kota=60,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=10,offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=11,offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=12,offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=13,offset_kota=0,M=0,k_M1=1,k_M2=1),
+        KilobotParam(id=14,offset_kota=0,M=0,k_M1=1,k_M2=1)]
 
 
 
@@ -137,11 +145,13 @@ class Marker:
         self.kot = kot
         return None
 class KilobotParam:
-    def __init__(self, id, offset_kota, k_M1, k_M2):
+    def __init__(self, id, offset_kota,M, k_M1, k_M2):
         self.id = id
         self.offset_kota = offset_kota
+        self.M = M
         self.k_M1 = k_M1
         self.k_M2 = k_M2
+        self.endReached = True
     
   
 class Math_Utills:
@@ -149,7 +159,10 @@ class Math_Utills:
         pi = np.pi
         kot = 180/pi*np.arctan2(Spredaj[1]-Center[1],Spredaj[0]-Center[0])
         if kot < 0:
-            kot = 360 + kot
+            kot += 360
         return int(kot)
+
     def abs(v):
         return np.linalg.norm(v)
+    def insideCircle(c, p,rs):
+        return (p[0]-c[0])**2 + (p[1] - c[1])**2 < rs
